@@ -1,0 +1,7 @@
+{
+  "name": "demo-keyboard-plugin",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
