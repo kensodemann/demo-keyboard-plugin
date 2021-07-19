@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Keyboard } from '@ionic-native/keyboard/ngx';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -6,7 +8,26 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  status = 'unknown';
 
-  constructor() {}
+  constructor(private keyboard: Keyboard) {
+    this.keyboard
+      .onKeyboardDidHide()
+      .pipe(tap(() => (this.status = 'hidden')))
+      .subscribe();
+    this.keyboard
+      .onKeyboardDidShow()
+      .pipe(tap(() => (this.status = 'visible')))
+      .subscribe();
+  }
 
+  show() {
+    setTimeout(() => {
+      this.keyboard.show();
+    });
+  }
+
+  hide() {
+    this.keyboard.hide();
+  }
 }
